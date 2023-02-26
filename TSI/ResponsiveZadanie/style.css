@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  font-weight: bold;
+}
+
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20vh;
+  background: linear-gradient(90deg, #00d2ff 0%, #ca2da3 100%);
+}
+
+.mainsection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex-basis: 75%;
+}
+
+.mainrow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 30%;
+  background-color: pink;
+  height: 60vh;
+}
+
+.menu #hiddenpoint {
+  opacity: 0;
+}
+
+.content {
+  background-color: green;
+  height: 60vh;
+  flex-basis: 70%;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.content img {
+  width: 0px;
+  margin: 15px;
+}
+
+.ad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow;
+  height: 80vh;
+  flex-basis: 25%;
+}
+
+.ad img,
+.ad2 img {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: gray;
+  height: 20vh;
+}
+
+.ad2 {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .ad {
+    display: none;
+  }
+
+  .row {
+    flex-basis: 100%;
+  }
+
+  .ad2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+    height: 20vh;
+    flex-basis: 25%;
+  }
+
+  .footertxt {
+    flex-basis: 75%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .ad2 {
+    display: none;
+  }
+  .mainrow {
+    flex-direction: column;
+    height: 60vh;
+  }
+  .menu {
+    width: 100vw;
+    height: 20vh;
+  }
+  .content {
+    width: 100vw;
+    height: 40vh;
+  }
+}

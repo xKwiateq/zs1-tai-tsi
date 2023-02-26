@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Try Catch</title>
+  </head>
+  <body>
+    <label for="txtA">
+      Zmienna A
+      <input type="text" id="txtA" />
+    </label>
+    <br />
+    <label for="txtB">
+      Zmienna B
+      <input type="text" id="txtB" />
+    </label>
+    <br />
+    <input type="button" value="Oblicz" id="btnOblicz" />
+    <br />
+    <div id="wynik"></div>
+
+    <script>
+      document.getElementById("btnOblicz").addEventListener("click", () => {
+        let txtA = document.getElementById("txtA");
+        let txtB = document.getElementById("txtB");
+        let divW = document.getElementById("wynik");
+
+        try {
+          if (txtA.value.trim() == "") throw "Pole A jest puste";
+          let b = Number(txtB.value);
+          if (b < 10) throw "B jest mniejsze od 10";
+          if (b > 100) throw "B jest większe od 100";
+
+          let w = Number(txtA.value) * b.toFixed(10);
+
+          if (isNaN(w)) throw "Wynik nie jest liczbą";
+        } catch (error) {
+          divW.innerHTML += "Error: " + error + "<br>";
+          divW.innerHTML += "Error name: " + error.name + "<br>";
+          divW.innerHTML += "Error message: " + error.message + "<br>";
+        } finally {
+        }
+      });
+    </script>
+  </body>
+</html>

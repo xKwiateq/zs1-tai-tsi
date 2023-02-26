@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Ukrywanie Elementow</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $(function () {
+        $("#div1,#div2").hide(2000);
+        $("#div0:hidden").show(5000);
+
+        $("#p1").fadeOut(2000);
+        $("#p1").fadeIn(5000);
+        $("#p1").width(100).fadeToggle(20000);
+      });
+    </script>
+    <style>
+      section div {
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+      }
+
+      #div1 {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div3">div3</div>
+    <div id="div2">div2</div>
+    <div id="div1">div1</div>
+    <div id="div0" style="display: none">div0</div>
+
+    <p id="p1">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
+      facere porro dolorem quam dicta ex voluptates neque consequuntur magni,
+      laboriosam pariatur perferendis corrupti vero quisquam architecto.
+      Voluptatibus veritatis aperiam nemo.
+    </p>
+
+    <section></section>
+
+    <div id="append">.append()</div>
+    <div id="prepend">.prepend()</div>
+
+    <hr />
+
+    <h2>Animacje</h2>
+  </body>
+</html>

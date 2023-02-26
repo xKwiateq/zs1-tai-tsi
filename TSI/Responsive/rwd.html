@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: sans-serif;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        min-width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100vw;
+        gap: 20px;
+        padding: 0 10px 0 10px;
+      }
+
+      nav {
+        flex: 30%;
+      }
+
+      article {
+        flex: 60%;
+      }
+
+      article p {
+        padding: 20px;
+        background-image: url(./img/bg.jpg);
+        border-radius: 10px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      nav ul li a {
+        display: block;
+        padding: 10px;
+        background-color: rgb(225, 151, 226);
+        text-decoration: none;
+        color: #000;
+        margin: 5px;
+        border-radius: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      img {
+        max-width: 460px;
+        width: 100%;
+      }
+      .photo {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      footer {
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+        margin-top: 20px;
+        color: white;
+        width: 100%;
+        padding: 30px 0 30px 0;
+      }
+
+      @media screen and (max-width: 768px) {
+        .flex {
+          flex-direction: column;
+        }
+
+        nav {
+          flex: 100%;
+        }
+
+        nav a {
+          width: 85px;
+          text-align: center;
+        }
+
+        nav ul {
+          display: flex;
+          justify-content: space-around;
+        }
+
+        article {
+          flex: 100%;
+        }
+
+        article p {
+          background-image: url(./img/bg2.jpg);
+          max-width: 450px;
+        }
+      }
+
+      @media screen and (max-width: 300px) {
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav a {
+          width: 200px;
+        }
+
+        header h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header><h1>Responsywna strona</h1></header>
+      <div class="flex">
+        <nav>
+          <ul>
+            <li><a href="">HTML</a></li>
+            <li><a href="">CSS</a></li>
+            <li><a href="">JS</a></li>
+          </ul>
+        </nav>
+        <article>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt
+            exercitationem ad eos distinctio, earum sequi quia mollitia harum
+            explicabo. Perferendis dignissimos, in amet tenetur dolore
+            reprehenderit cumque? Quasi, nesciunt ex. Lorem ipsum, dolor sit
+            amet consectetur adipisicing elit. Deserunt exercitationem ad eos.
+          </p>
+        </article>
+      </div>
+      <div class="photo">
+        <img src="./img/main.jpg" alt="responsive design on devices" />
+      </div>
+      <footer>
+        <p>Stopka</p>
+      </footer>
+    </div>
+  </body>
+</html>

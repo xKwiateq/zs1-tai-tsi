@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>Document</title>
+    <script>
+      $(document).ready(function () {
+        let $eltxtA = $("#txtA");
+        $eltxtA.val("abc");
+        console.log($eltxtA.val());
+
+        $("#txtB").val("156.25");
+
+        // style
+        $("#txtA").css("background-color", "red");
+        $("#txtA").css("color", "white");
+
+        $("#txtB").css({
+          "background-color": "black",
+          color: "white",
+          "font-size": 20,
+        });
+
+        $("p").css("font-size", 25);
+
+        $("#divWynik").text("to jest tylko tekst <br> <hr> aaa");
+        $("#divWynik").html("to jest <br> <b>tekst html</b>  <hr> aaa");
+
+        $("#txtA").attr("type", "number");
+        $("#txtA").removeAttr("name");
+
+        let $a = $("p").filter(function () {
+          return $(this).text() === "paragraf 2";
+        });
+        console.log($a);
+
+        $("p").addClass("klasa");
+        setTimeout(() => {
+          $("p").removeClass("klasa");
+        }, 5000);
+
+        $("#btnOblicz").on("click", function () {
+          alert("zdarzenie click z funkcji on");
+        });
+
+        $("#btnKliknij").click(function () {
+          $(this).val("Ok nowa nazwa");
+        });
+
+        $("button").on("click", function () {
+          $(e.currentTarget).text("Kliknięto");
+        });
+
+        $("div#divUkryty").on({
+          mouseout: function () {
+            $("div#divUkryty").toggleClass("klasa");
+          },
+          click: function () {
+            alert("kliknięto div");
+          },
+        });
+
+        $(document.body).css("background-color", "lightblue");
+      });
+    </script>
+  </head>
+  <body>
+    <label for="txtA">
+      A <input type="text" id="txtA" name="AAAAA" value="10" />
+    </label>
+    <br />
+    <label for="txtB"> B <input type="text" id="txtB" /> </label>
+    <br />
+    <input type="button" value="Oblicz" id="btnOblicz" />
+    <br />
+    <input type="button" value="Kliknij" id="btnKliknij" />
+    <div id="divWynik"></div>
+
+    <p>paragraf 0</p>
+    <p>paragraf 1</p>
+    <p id="p2">paragraf 2</p>
+  </body>
+</html>

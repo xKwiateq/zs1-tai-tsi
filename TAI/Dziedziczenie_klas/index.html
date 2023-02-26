@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klasy i Dziedziczenie</title>
+  </head>
+  <body>
+    <div id="wynik"></div>
+    <script>
+      class Pojazd {
+        marka = "";
+        kolor = "Biały";
+        waga = null;
+        constructor(v_pocz, vin, data_p) {
+          this.v_pocz = v_pocz;
+          this.vin = vin;
+          this.data_p = data_p;
+        }
+
+        info() {
+          return `Marka: ${this.marka}, Kolor: ${this.kolor}, Waga: ${this.waga}, V_pocz: ${this.v_pocz}, Vin: ${this.vin}, Data_p: ${this.data_p}`;
+        }
+
+        static infoKlasa() {
+          console.log("Klasa Pojazd");
+        }
+
+        static oblicz(a, b) {
+          return (100 * a) / b;
+        }
+
+        set Waga(x) {
+          this.waga = x * 1.5;
+        }
+
+        get Waga() {
+          return this.waga;
+        }
+      }
+
+      class Samochod extends Pojazd {
+        constructor(v_pocz, vin, data_p, ilosc_drzwi, moc, liczba_kol) {
+          super(v_pocz, vin, data_p);
+          this.ilosc_drzwi = ilosc_drzwi;
+          this.moc = moc;
+          this.liczba_kol = liczba_kol;
+        }
+
+        info() {
+          return `Kolor: ${this.kolor} <br>
+            Waga: ${this.waga} <br>
+            V_pocz: ${this.v_pocz} <br>
+            Vin: ${this.vin} <br>
+            Data_p: ${this.data_p} <br>
+            Liczba Kół: ${this.liczba_kol} <br>
+            <hr>`;
+        }
+      }
+
+      const wynik = document.getElementById("wynik");
+
+      const pojazd1 = new Pojazd(100, 123456789, "2021-01-01");
+      wynik.innerHTML = pojazd1.info();
+      pojazd1.marka = "Fiat";
+      pojazd1.Waga = 1200;
+      alert(pojazd1.Waga);
+
+      Pojazd.infoKlasa();
+      console.log(Pojazd.oblicz(10, 100));
+
+      const samochod1 = new Samochod(100, 123456789, "2021-01-01", 5, 100, 4);
+      wynik.innerHTML += "<br> samochod <br>";
+      wynik.innerHTML += samochod1.info();
+    </script>
+  </body>
+</html>

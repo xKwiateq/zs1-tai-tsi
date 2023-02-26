@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dziedziczenie - zadanie</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      canvas {
+        background-color: lightseagreen;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Figury:
+    - pole
+    - x
+    - y
+    - obwód
+    - kolor
+    - rysuj() - info canvas context
+
+    Kwadrat dziedziczenie z Figury:
+    - bok
+    - rysuj() - rysowanie na kanvasie -->
+
+    <canvas id="canvas" width="600px" height="600px"></canvas>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      class Figura {
+        kolor = "black";
+        x = 0;
+        y = 0;
+        constructor(ctx, x, y, kolor) {
+          this.ctx = ctx;
+          this.x = x;
+          this.y = y;
+          this.kolor = kolor;
+
+          this.ctx.beginPath();
+          this.ctx.strokeStyle = this.kolor;
+        }
+
+        rysuj() {
+          throw new Error("Metoda rysuj() nie została zaimplementowana");
+        }
+        obwod() {
+          throw new Error("Metoda obwod() nie została zaimplementowana");
+        }
+        pole() {
+          throw new Error("Metoda pole() nie została zaimplementowana");
+        }
+        fill() {
+          this.ctx.fillStyle = this.kolor;
+          this.ctx.fill();
+          this.ctx.closePath();
+        }
+        info() {
+          console.log(`
+            Pole: ${this.pole()}
+            Obwód: ${this.obwod()}
+            `);
+        }
+      }
+
+      class Kwadrat extends Figura {
+        bokA = 0;
+        constructor(ctx, x, y, kolor, bokA) {
+          super(ctx, x, y, kolor);
+          this.bokA = bokA;
+        }
+
+        rysuj() {
+          this.ctx.rect(this.x, this.y, this.bokA, this.bokA);
+          this.fill();
+        }
+
+        obwod() {
+          return 4 * this.bokA;
+        }
+
+        pole() {
+          return this.bokA * this.bokA;
+        }
+      }
+
+      const kwadrat = new Kwadrat(ctx, 250, 150, "black", 100);
+      kwadrat.rysuj();
+      kwadrat.info();
+
+      class Prostokat extends Kwadrat {
+        bokB = 0;
+        constructor(ctx, x, y, kolor, bokA, bokB) {
+          super(ctx, x, y, kolor, bokA);
+          this.bokB = bokB;
+        }
+
+        rysuj() {
+          this.ctx.rect(this.x, this.y, this.bokA, this.bokB);
+          this.fill();
+        }
+
+        obwod() {
+          return 2 * this.bokA + 2 * this.bokB;
+        }
+
+        pole() {
+          return this.bokA * this.bokB;
+        }
+      }
+
+      const prostokat = new Prostokat(ctx, 250, 280, "red", 100, 50);
+      prostokat.rysuj();
+      prostokat.info();
+
+      //   okrag
+
+      class Okrag extends Figura {
+        promien = 0;
+        constructor(ctx, x, y, kolor, promien) {
+          super(ctx, x, y, kolor);
+          this.promien = promien;
+        }
+
+        rysuj() {
+          this.ctx.arc(this.x, this.y, this.promien, 0, 2 * Math.PI);
+          this.fill();
+        }
+
+        obwod() {
+          return 2 * Math.PI * this.promien;
+        }
+
+        pole() {
+          return Math.PI * this.promien * this.promien;
+        }
+      }
+
+      const okrag = new Okrag(ctx, 250, 400, "green", 50);
+      okrag.rysuj();
+      okrag.info();
+    </script>
+  </body>
+</html>

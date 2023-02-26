@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive website exercise</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $(function () {
+        $("#ad1").fadeIn(3000);
+        $("#ad2").fadeIn(3000);
+      });
+
+      $(function () {
+        $("#img1").animate(
+          {
+            width: "250px",
+          },
+          1500
+        );
+      });
+
+      $(function () {
+        $("#img1").mouseover(function () {
+          $("#img1").animate(
+            {
+              width: "300px",
+            },
+            500
+          );
+        });
+      });
+
+      $(function () {
+        $("#img1").mouseout(function () {
+          $("#img1").animate(
+            {
+              width: "250px",
+            },
+            500
+          );
+        });
+      });
+
+      $(function () {
+        $("#ad1,#ad2").click(function () {
+          alert(
+            "You won a brand new car! All you need to do is write this funny numbers from your debit card on this email: supercars@example.com"
+          );
+        });
+      });
+
+      $(function () {
+        $("#listmenu").hover(function () {
+          $("#hiddenpoint").css("opacity", "100%");
+        });
+      });
+
+      $(function () {
+        $("#listmenu").mouseleave(function () {
+          $("#hiddenpoint").css("opacity", "0%");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">CarShop u Mirka</div>
+      <div class="mainsection">
+        <div class="row">
+          <div class="mainrow">
+            <div class="menu">
+              <ul id="listmenu">
+                <li>Home</li>
+                <li>Cars</li>
+                <li>Contact</li>
+                <li id="hiddenpoint">Secret Website</li>
+              </ul>
+            </div>
+            <div class="content">
+              <p>
+                A car dealership, or car dealer, is a business that sells new or
+                used cars, at the retail level, based on a dealership contract
+                with an automaker or its sales subsidiary. Car dealerships also
+                often sell spare parts and automotive maintenance services.
+              </p>
+              <img
+                src="./img/330px-Car_dealership_in_Rockville_Maryland_Jeep.jpg"
+                alt="dealership car"
+                id="img1"
+              />
+              <h2>History of car dealerships in the United States</h2>
+              <p>
+                The early cars were sold by automakers to customers directly or
+                through a variety of channels, including mail order, department
+                stores, and traveling representatives. For example, Sears made
+                its first attempt at selling a gasoline-engined chain-drive
+                high-wheeler in 1908 through its mail-order catalog and starting
+                in 1951 the Allstate through select its stores and the
+                catalog.[1][2] The first dealership in the United States was
+                established in 1898 by William E. Metzger. Today, direct sales
+                by an automaker to consumers are limited by most states in the
+                U.S. through franchise laws that require new cars to be sold
+                only by licensed and bonded, independently owned dealerships.[3]
+                The first woman car dealer in the United States was Rachel
+                "Mommy" Krouse who in 1903 opened her business, Krouse Motor Car
+                Company, in Philadelphia, Pennsylvania.[4]
+              </p>
+              <img src="./img/img.jpg" alt="cars" />
+              <p>
+                Car dealerships are usually franchised to sell and service
+                vehicles by specific companies. They are often located on
+                properties offering enough room to have buildings housing a
+                showroom, mechanical service, and body repair facilities, as
+                well as to provide storage for used and new vehicles. Many
+                dealerships are located out of town or on the edge of town
+                centers. An example of a traditional single proprietorship car
+                dealership was Collier Motors in North Carolina.[5] Many modern
+                dealerships are now part of corporate-owned chains with hundreds
+                of locations.[6] Dealership profits in the US mainly come from
+                servicing, some from used cars, and little from new cars.[7]
+                Most automotive manufacturers have shifted the focus of their
+                franchised retailers to branding and technology. New or
+                refurbished facilities are required to have a standard look for
+                their dealerships and have product experts to liaise with
+                customers.[8][9] Audi has experimented with a hi-tech showroom
+                that allows customers to configure and experience cars on 1:1
+                scale digital screens.[10][11] In markets where it is permitted,
+                Mercedes-Benz opened city centre brand stores.[12]
+              </p>
+            </div>
+          </div>
+          <div class="footer">
+            <p class="footertxt">Website made by Kwiatek</p>
+            <div class="ad2">
+              <img
+                src="./img/Zrzut ekranu 2023-02-14 111612.png"
+                alt="ad"
+                id="ad2"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="ad">
+          <img src="./img/9d2ae046030897.5845c60c296d4.jpg" alt="ad" id="ad1" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

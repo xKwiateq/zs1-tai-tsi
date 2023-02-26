@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arkanoid</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+      }
+
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <div>
+      <label for="username">Username</label>
+      <input type="text" id="username" /><br />
+      <label for="color">Kolor</label>
+      <input type="text" id="color" /><br />
+      <button id="start">Start</button>
+    </div>
+
+    <script>
+      const c = document.getElementById("c");
+      const ctx = c.getContext("2d");
+      const width = (c.width = 500);
+      const height = (c.height = window.innerHeight);
+      const startBtn = document.getElementById("start");
+      const username = document.getElementById("username");
+      const color = document.getElementById("color");
+
+      class Pilka {
+        constructor(x, y, promien, kolor, dx, dy) {
+          this.x = x;
+          this.y = y;
+          this.dx = dx;
+          this.dy = dy;
+          this.promien = promien;
+          this.kolor = kolor;
+        }
+
+        rysuj() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.promien, 0, Math.PI * 2);
+          ctx.fillStyle = this.kolor;
+          ctx.fill();
+        }
+
+        ruch() {
+          this.x += this.dx;
+          this.y += this.dy;
+        }
+
+        detekcjaKolizji() {
+          if (this.x + this.dx > width - this.promien || this.x + this.dx < 0) {
+            this.dx = -this.dx;
+          }
+          if (this.y + this.dy < 0) {
+            this.dy = -this.dy;
+          }
+        }
+
+        detekcjaKolizjiPaletka(paletka) {
+          if (
+            this.y + this.dy >
+              height - paletka.paletkaWysokosc - this.promien &&
+            this.x > paletka.paletkaX &&
+            this.x < paletka.paletkaX + paletka.paletkaDlugosc
+          ) {
+            this.dy = -this.dy;
+          }
+        }
+      }
+
+      class Arkanoid {
+        kliknietoPrawo = false;
+        kliknietoLewo = false;
+        // cegielki
+        liczbaWieszyCegielek = 3;
+        liczbaKolumnCegielek = 5;
+        cegielkaWysokosc = 20;
+        cegielkaSzerokosc = 0;
+        cegialkaOdstep = 5;
+        cegielkaOdstepGora = 30;
+        cegielkaOdstepLewo = 30;
+
+        cegielki = [];
+
+        wynik = 0;
+
+        pilki = [];
+
+        constructor(wysokosc, dlugosc, promien, dx, dy) {
+          this.paletkaWysokosc = wysokosc;
+          this.paletkaDlugosc = dlugosc;
+          this.paletkaX = (width - dlugosc) / 2;
+
+          this.promien = promien;
+          this.dx = dx;
+          this.dy = dy;
+
+          this.uzupelnijTabliceCegielek();
+
+          this.pilki.push(
+            new Pilka(
+              height / 2,
+              width / 2,
+              this.promien,
+              "blue",
+              this.dx,
+              this.dy
+            )
+          );
+          this.pilki.push(
+            new Pilka(
+              height / 2,
+              width - this.promien,
+              this.promien,
+              "red",
+              this.dx,
+              this.dy
+            )
+          );
+          this.pilki.push(
+            new Pilka(
+              height / 2,
+              width - this.promien - 100,
+              this.promien,
+              "greeb",
+              this.dx,
+              this.dy
+            )
+          );
+        }
+
+        rysujPaletke() {
+          ctx.beginPath();
+          ctx.rect(
+            this.paletkaX,
+            height - this.paletkaWysokosc,
+            this.paletkaDlugosc,
+            this.paletkaWysokosc
+          );
+          ctx.fillStyle = "blue";
+          ctx.fill();
+        }
+
+        uzupelnijTabliceCegielek() {
+          this.cegielkaSzerokosc = Math.round(
+            (width -
+              (this.cegielkaOdstepLewo * 2 +
+                this.cegialkaOdstep * (this.liczbaKolumnCegielek - 1))) /
+              this.liczbaKolumnCegielek
+          );
+          for (let i = 0; i < this.liczbaWieszyCegielek; i++) {
+            this.cegielki[i] = [];
+            for (let j = 0; j < this.liczbaKolumnCegielek; j++) {
+              this.cegielki[i][j] = {
+                x:
+                  this.cegielkaOdstepLewo +
+                  j * (this.cegielkaSzerokosc + this.cegialkaOdstep),
+                y:
+                  this.cegielkaOdstepGora +
+                  i * (this.cegielkaWysokosc + this.cegialkaOdstep),
+                status: 1,
+              };
+            }
+          }
+        }
+
+        rysujCegielki() {
+          for (let i = 0; i < this.liczbaWieszyCegielek; i++) {
+            for (let j = 0; j < this.liczbaKolumnCegielek; j++) {
+              if (this.cegielki[i][j].status == 1) {
+                ctx.beginPath();
+                ctx.rect(
+                  this.cegielki[i][j].x,
+                  this.cegielki[i][j].y,
+                  this.cegielkaSzerokosc,
+                  this.cegielkaWysokosc
+                );
+                ctx.fillStyle = "green";
+                ctx.fill();
+              }
+            }
+          }
+        }
+
+        rysuj() {
+          ctx.fillStyle = "hsl(0, 0%, 80%)";
+          ctx.fillRect(0, 0, width, height);
+          this.rysujPaletke();
+
+          if (this.kliknietoPrawo) {
+            this.paletkaX += 5;
+            if (this.paletkaX + this.paletkaDlugosc > width) {
+              this.paletkaX = width - this.paletkaDlugosc;
+            }
+          } else if (this.kliknietoLewo) {
+            this.paletkaX -= 5;
+            if (this.paletkaX < 0) {
+              this.paletkaX = 0;
+            }
+          }
+          // pilka
+          this.pilki.forEach((pilka) => {
+            console.log(pilka);
+            pilka.rysuj();
+            pilka.detekcjaKolizji();
+            pilka.detekcjaKolizjiPaletka({
+              paletkaX: this.paletkaX,
+              paletkaWysokosc: this.paletkaWysokosc,
+              paletkaDlugosc: this.paletkaDlugosc,
+            });
+            pilka.ruch();
+          });
+
+          // deteekcja koizji cegielki
+          this.detekcjaKolizjiCegielki();
+
+          // rysuj cegielki
+          this.rysujCegielki();
+        }
+
+        // detelcka kolizji
+        detekcjaKolizjiCegielki() {
+          for (let i = 0; i < this.liczbaWieszyCegielek; i++) {
+            for (let j = 0; j < this.liczbaKolumnCegielek; j++) {
+              let c = this.cegielki[i][j];
+              if (c.status == 1) {
+                // dla kazdej cegieki sprawdz czy pilka jest w jej srodku
+                this.pilki.forEach((pilka) => {
+                  if (
+                    pilka.x > c.x &&
+                    pilka.x < c.x + this.cegielkaSzerokosc &&
+                    pilka.y > c.y &&
+                    pilka.y < c.y + this.cegielkaWysokosc
+                  ) {
+                    pilka.dy = -pilka.dy;
+                    c.status = 0;
+                    this.wynik++;
+                    if (this.wynik == this.liczbaKolumnCegielek * 3) {
+                      alert("wygrales");
+                      document.location.reload();
+                    }
+                  }
+                });
+              }
+            }
+          }
+        }
+
+        rysujPilke() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.promien, 0, Math.PI * 2);
+          ctx.fillStyle = color.value || "red";
+          ctx.fill();
+        }
+
+        set prawo(x) {
+          this.kliknietoPrawo = x;
+        }
+
+        set lewo(x) {
+          this.kliknietoLewo = x;
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          arkanoid.prawo = true;
+        } else if (e.key === "ArrowLeft") {
+          arkanoid.lewo = true;
+        }
+      });
+
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "ArrowRight") {
+          arkanoid.prawo = false;
+        } else if (e.key === "ArrowLeft") {
+          arkanoid.lewo = false;
+        }
+      });
+
+      const arkanoid = new Arkanoid(12, 500, 10, 5, -5);
+
+      username.value = localStorage[0] || "";
+      if (localStorage.getItem(username.value)) {
+        const { color } = JSON.parse(localStorage.getItem(username.value));
+        color.value = color;
+      }
+
+      startBtn.addEventListener("click", () => {
+        localStorage.setItem(
+          username.value,
+          JSON.stringify({
+            color: color.value,
+          })
+        );
+
+        setInterval(() => {
+          arkanoid.rysuj();
+        }, 1000 / 60);
+      });
+    </script>
+  </body>
+</html>

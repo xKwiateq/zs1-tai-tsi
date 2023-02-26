@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookies</title>
+  </head>
+  <body>
+    <script>
+      //   document.cookie = "Jan = ok";
+
+      //   document.cookie = "gracz1=Michal; path=/";
+
+      let data = new Date();
+      data.setDate(data.getMinutes() + 2);
+      console.log(data);
+
+      document.cookie = "gracz1=Michał; path=/; expires=" + data + "; secure";
+
+      const cookieVal = document.querySelector("#txtVal");
+      const cookieName = document.querySelector("#txtName");
+      document.querySelector("#btnDodaj").addEventListener("click", () => {
+        document.cookie =
+          encodeURIComponent(cookieName.value) +
+          "=" +
+          encodeURIComponent(cookieVal.value);
+      });
+
+      function setCookie(name, value, days) {
+        let cookieName = encodeURIComponent(name);
+        let cookieValue = encodeURIComponent(value);
+        const opt = {
+          path: "/",
+          ...option,
+        };
+
+        let txt = cookieName + "=" + cookieValue;
+        if (opt.dzien && typeof opt.dzien === "number") {
+          let data = new Date();
+          data.setTime(data.getTime() + opt.dzien * 1000 * 60 * 60 * 24);
+          txt += "; expires=" + data;
+        }
+        if (opt.path) {
+          txt += "; path=" + opt.path;
+        }
+        document.cookie = txt;
+      }
+      setCookie("ciasteczko1", "1450");
+      setCookie("ciasteczko2", "5480", { dzien: 2 });
+      setCookie("ciasteczko3", "5480", { path: "/mojadomena.pl", dzien: 2 });
+
+      function odczytCookie(name) {
+        if (document.cookie !== "") {
+          let cookies = document.cookie.split("; ");
+          for (let i = 0; i < cookies.length; i++) {
+            let [nazwa, wartosc] = cookies[i].split("=");
+            if (nazwa == decodeURIComponent(name)) {
+            }
+          }
+        }
+      }
+    </script>
+    <label for="txtVal"
+      >Wartosc
+      <input type="text" id="txtVal" />
+    </label>
+    <br />
+    <label for="txtName"
+      >Nazwa
+      <input type="text" id="txtName" />
+    </label>
+    <br />
+    <input type="button" value="Dodaj cookie" id="btnDodaj" />
+  </body>
+</html>
